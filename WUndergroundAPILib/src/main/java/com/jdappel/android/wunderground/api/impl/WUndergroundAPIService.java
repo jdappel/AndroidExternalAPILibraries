@@ -1,26 +1,25 @@
 package com.jdappel.android.wunderground.api.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jdappel.android.wunderground.model.api.impl.WeatherUndergroundJacksonModule;
-
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
- * Created by jappel on 3/30/2016.
+ * Internal class to construct {@link Retrofit} API bindings for WUnderground
+ * 
+ * @author jappel
  */
 class WUndergroundAPIService {
 
-    static WUndergroundAPI createWUndergroundAPIService(final String apiToken) {
+    static <T> T createAPI(Class<T> apiType, final String apiToken) {
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new WeatherUndergroundJacksonModule());
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .addConverterFactory(JacksonConverterFactory.create(mapper))
-                .baseUrl("http://api.wunderground.com/api/" + apiToken + "/");
+        Retrofit.Builder builder =
+            new Retrofit.Builder().addConverterFactory(JacksonConverterFactory.create(mapper)).baseUrl(
+                "http://api.wunderground.com/api/" + apiToken + "/");
 
-        return builder.build().create(WUndergroundAPI.class);
+        return builder.build().create(apiType);
     }
 }

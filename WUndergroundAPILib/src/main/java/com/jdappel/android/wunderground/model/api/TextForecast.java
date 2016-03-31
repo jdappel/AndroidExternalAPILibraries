@@ -3,17 +3,19 @@ package com.jdappel.android.wunderground.model.api;
 import java.util.List;
 
 /**
- * Created by jappel on 3/30/2016.
+ * Immutable POJO for holding a text forecast from WUnderground
+ * 
+ * @author jappel
  */
 public class TextForecast {
 
-    private final List<SimpleTextForecast> forecasts;
+    private final List<TextForecastDetail> forecasts;
 
-    public TextForecast(List<SimpleTextForecast> forecasts) {
+    public TextForecast(List<TextForecastDetail> forecasts) {
         this.forecasts = forecasts;
     }
 
-    public List<SimpleTextForecast> getForecastList() {
+    public List<TextForecastDetail> getForecastList() {
         return forecasts;
     }
 }

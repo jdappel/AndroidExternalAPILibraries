@@ -1,7 +1,9 @@
 package com.jdappel.android.wunderground.model.api;
 
 /**
- * Created by jappel on 3/30/2016.
+ * Immutable POJO for representing a forecast returned from WUnderground.
+ * 
+ * @author jappel
  */
 public class Forecast {
 

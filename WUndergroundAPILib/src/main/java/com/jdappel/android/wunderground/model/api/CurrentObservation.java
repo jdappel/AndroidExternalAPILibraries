@@ -1,7 +1,10 @@
 package com.jdappel.android.wunderground.model.api;
 
 /**
- * Created by jappel on 3/30/2016.
+ * Immutable POJO for representing a current weather observation as it pertains
+ * to the Weather Underground API.
+ * 
+ * @author jappel
  */
 public class CurrentObservation {
 

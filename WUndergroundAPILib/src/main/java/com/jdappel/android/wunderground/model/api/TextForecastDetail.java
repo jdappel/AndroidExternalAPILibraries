@@ -1,7 +1,10 @@
 package com.jdappel.android.wunderground.model.api;
 
 /**
- * Created by jappel on 3/30/2016.
+ * Immutable POJO for holding forecast detail pertaining to a text forecast from
+ * WUnderground
+ * 
+ * @author jappel
  */
 public class TextForecastDetail {
 
@@ -9,18 +12,15 @@ public class TextForecastDetail {
     private final String title;
 
     public TextForecastDetail(String text, String title) {
-
-	this.text = text;
-	this.title = title;
+        this.text = text;
+        this.title = title;
     }
 
     public String getText() {
-
-	return text;
+        return text;
     }
 
     public String getTitle() {
-
-	return title;
+        return title;
     }
 }

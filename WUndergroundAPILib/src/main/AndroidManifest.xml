@@ -1,8 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jdappel.android.wu"
-    android:versionCode="1"
-    android:versionName="1.0.0">
+    package="com.jdappel.android.wunderground">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>

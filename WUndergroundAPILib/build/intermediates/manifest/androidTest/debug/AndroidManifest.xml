@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="14" />
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
@@ -12,6 +12,8 @@
         android:handleProfiling="false"
         android:label="Tests for com.jdappel.android.wu.test"
         android:targetPackage="com.jdappel.android.wu.test" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
         <uses-library android:name="android.test.runner" />
