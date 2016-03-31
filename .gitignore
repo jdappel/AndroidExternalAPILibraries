@@ -3,10 +3,5 @@
 /local.properties
 .idea
 .DS_Store
-/build
-/captures
-.classpath
-.project
-.settings
-.metadata
-bin/
+build/**
+/WUndergroundAPILib/build
