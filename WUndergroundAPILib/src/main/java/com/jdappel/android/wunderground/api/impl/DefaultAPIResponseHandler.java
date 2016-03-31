@@ -13,7 +13,7 @@ class DefaultAPIResponseHandler<T> implements APIResponseHandler<T> {
     private final boolean error;
 
     DefaultAPIResponseHandler(T data) {
-        this.error = data != null ? false : true;
+        this.error = data == null;
         this.modelData = data;
     }
 
@@ -25,7 +25,7 @@ class DefaultAPIResponseHandler<T> implements APIResponseHandler<T> {
     @Override
     public T getModelData() {
         if (modelData == null)
-            throw new IllegalStateException("Model Data isn't available for " + modelData.getClass().getName());
+            throw new IllegalStateException("Model Data isn't available");
         return modelData;
     }
 }
