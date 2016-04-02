@@ -9,12 +9,19 @@ import com.jdappel.android.wunderground.api.APIResponseHandler;
  */
 class DefaultAPIResponseHandler<T> implements APIResponseHandler<T> {
 
-    private final T modelData;
-    private final boolean error;
+    private T modelData = null;
+    private boolean error = false;
+    private boolean isComplete = false;
 
-    DefaultAPIResponseHandler(T data) {
-        this.error = data == null;
+    void setData(T data) {
         this.modelData = data;
+        this.error = false;
+        this.isComplete = true;
+    }
+
+    void setError() {
+        this.error = true;
+        this.isComplete = true;
     }
 
     @Override

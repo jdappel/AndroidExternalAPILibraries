@@ -11,11 +11,15 @@ public class CurrentObservation {
     private final String currentWeather;
     private final String currentTemperature;
     private final String currentWind;
+    private final Location location;
+    private final String iconUrl;
 
-    public CurrentObservation(String currentWeather, String currentTemperature, String currentWind) {
+    public CurrentObservation(String currentWeather, String currentTemperature, String currentWind, Location location, String iconUrl) {
         this.currentWeather = currentWeather;
         this.currentTemperature = currentTemperature;
         this.currentWind = currentWind;
+        this.location = location;
+        this.iconUrl = iconUrl;
     }
 
     public String getCurrentWeather() {
@@ -28,5 +32,13 @@ public class CurrentObservation {
 
     public String getCurrentWind() {
         return currentWind;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
     }
 }

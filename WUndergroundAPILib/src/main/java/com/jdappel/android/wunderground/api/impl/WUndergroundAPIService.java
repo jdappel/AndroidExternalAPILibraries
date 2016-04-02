@@ -17,7 +17,8 @@ class WUndergroundAPIService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new WeatherUndergroundJacksonModule());
         Retrofit.Builder builder =
-            new Retrofit.Builder().addConverterFactory(JacksonConverterFactory.create(mapper)).baseUrl(
+            new Retrofit.Builder().
+                addConverterFactory(JacksonConverterFactory.create(mapper)).baseUrl(
                 "http://api.wunderground.com/api/" + apiToken + "/");
 
         return builder.build().create(apiType);

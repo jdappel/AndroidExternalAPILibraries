@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.jdappel.android.wunderground.model.api.CurrentObservation;
 import com.jdappel.android.wunderground.model.api.Forecast;
+import com.jdappel.android.wunderground.model.api.Location;
 import com.jdappel.android.wunderground.model.api.TextForecastDetail;
 import com.jdappel.android.wunderground.model.api.TextForecast;
 
@@ -22,5 +23,6 @@ class WeatherUndergroundJacksonModule extends SimpleModule {
         context.setMixInAnnotations(TextForecast.class, TextForecastMixin.class);
         context.setMixInAnnotations(Forecast.class, ForecastMixin.class);
         context.setMixInAnnotations(ForecastWrapper.class, ForecastWrapperMixin.class);
+        context.setMixInAnnotations(Location.class, LocationMixin.class);
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jdappel.android.wunderground.model.api.Location;
 
 /**
  * Jackson Mixin class for binding to
@@ -18,7 +19,9 @@ abstract class CurrentObservationMixin {
     @JsonCreator
     CurrentObservationMixin(@JsonProperty("weather") final String currentWeather,
         @JsonProperty("temperature_string") final String currentTemperature,
-        @JsonProperty("wind_string") final String currentWind) {
+        @JsonProperty("wind_string") final String currentWind,
+                            @JsonProperty("observation_location") final Location location,
+                            @JsonProperty("icon_url") final String iconUrl) {
 
     }
 
@@ -33,4 +36,12 @@ abstract class CurrentObservationMixin {
     @JsonProperty("wind_string")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     abstract String getCurrentWind();
+
+    @JsonProperty("observation_location")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    abstract Location getLocation();
+
+    @JsonProperty("icon_url")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    abstract String getIconUrl();
 }
