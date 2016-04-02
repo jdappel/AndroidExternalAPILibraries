@@ -17,5 +17,5 @@ public interface ForecastAPI {
      * @param longitude the longitude of the location
      * @return a response handler for the request
      */
-    APIResponseHandler<Forecast> getForecastByLatLong(float latitude, float longitude);
+    APIResponseHandler<Forecast> getForecastByLatLong(double latitude, double longitude);
 }

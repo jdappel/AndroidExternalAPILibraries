@@ -10,5 +10,5 @@ import retrofit2.http.Path;
 interface RetrofitForecastAPI {
 
     @GET("forecast/q/{lat},{long}.json")
-    Call<ForecastWrapper> getForecastAtLatLong(@Path("lat") float lat, @Path("long") float longitude);
+    Call<ForecastWrapper> getForecastAtLatLong(@Path("lat") double lat, @Path("long") double longitude);
 }

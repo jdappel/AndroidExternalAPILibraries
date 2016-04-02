@@ -1,14 +1,16 @@
 package com.jdappel.android.wunderground.api.impl;
 
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import retrofit2.Response;
 
-import android.util.Log;
-
 import com.jdappel.android.wunderground.api.APIResponseHandler;
 import com.jdappel.android.wunderground.api.ForecastAPI;
+import com.jdappel.android.wunderground.model.api.CurrentObservation;
 import com.jdappel.android.wunderground.model.api.Forecast;
+
+import java.io.IOException;
 
 /**
  * Implementation of {@link ForecastAPI}
@@ -16,6 +18,8 @@ import com.jdappel.android.wunderground.model.api.Forecast;
  * @author jappel
  */
 class ForecastAPITemplate implements ForecastAPI {
+
+    private static final Logger logger = LoggerFactory.getLogger(ForecastAPITemplate.class);
 
     private final RetrofitForecastAPI apiBinding;
     private final String apiToken;
@@ -26,14 +30,15 @@ class ForecastAPITemplate implements ForecastAPI {
     }
 
     @Override
-    public APIResponseHandler<Forecast> getForecastByLatLong(float latitude, float longitude) {
+    public APIResponseHandler<Forecast> getForecastByLatLong(double latitude, double longitude) {
+        final DefaultAPIResponseHandler<Forecast> response = new DefaultAPIResponseHandler<>();
         try {
             Response<ForecastWrapper> resp = apiBinding.getForecastAtLatLong(latitude, longitude).execute();
             if (resp.isSuccessful())
-                return new DefaultAPIResponseHandler<>(resp.body().getForecast());
+                response.setData(resp.body().getForecast());
         } catch (IOException e) {
-            Log.e(getClass().getName(), "Exception while retrieving forecast");
+            logger.error(getClass().getName(), "Exception while retrieving forecast");
         }
-        return new DefaultAPIResponseHandler<>(null);
+        return response;
     }
 }

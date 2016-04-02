@@ -18,5 +18,5 @@ public interface ConditionsAPI {
      * @param longitude the longitude of the location
      * @return a response handler for the request
      */
-    APIResponseHandler<CurrentObservation> getCurrentObservationByLatLong(float latitude, float longitude);
+    APIResponseHandler<CurrentObservation> getCurrentObservationByLatLong(double latitude, double longitude);
 }

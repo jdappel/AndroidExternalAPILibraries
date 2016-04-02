@@ -10,5 +10,5 @@ import retrofit2.http.Path;
 interface RetrofitConditionsAPI {
 
     @GET("conditions/q/{lat},{long}.json")
-    Call<Conditions> getConditionsAtLatLong(@Path("lat") float lat, @Path("long") float longitude);
+    Call<Conditions> getConditionsAtLatLong(@Path("lat") double lat, @Path("long") double longitude);
 }

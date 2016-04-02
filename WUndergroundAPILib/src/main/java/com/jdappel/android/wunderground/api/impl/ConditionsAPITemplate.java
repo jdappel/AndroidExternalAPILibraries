@@ -1,12 +1,14 @@
 package com.jdappel.android.wunderground.api.impl;
 
-import retrofit2.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import android.util.Log;
+import retrofit2.Response;
 
 import com.jdappel.android.wunderground.api.APIResponseHandler;
 import com.jdappel.android.wunderground.api.ConditionsAPI;
 import com.jdappel.android.wunderground.model.api.CurrentObservation;
+import com.jdappel.android.wunderground.model.api.Forecast;
 
 /**
  * Implementation of {@link ConditionsAPI}
@@ -14,6 +16,8 @@ import com.jdappel.android.wunderground.model.api.CurrentObservation;
  * @author jappel
  */
 class ConditionsAPITemplate implements ConditionsAPI {
+
+    private static final Logger logger = LoggerFactory.getLogger(ConditionsAPITemplate.class);
 
     private final RetrofitConditionsAPI apiBinding;
     private final String apiToken;
@@ -24,14 +28,16 @@ class ConditionsAPITemplate implements ConditionsAPI {
     }
 
     @Override
-    public APIResponseHandler<CurrentObservation> getCurrentObservationByLatLong(float latitude, float longitude) {
+    public APIResponseHandler<CurrentObservation> getCurrentObservationByLatLong(double latitude, double longitude) {
+        final DefaultAPIResponseHandler<CurrentObservation> response = new DefaultAPIResponseHandler<>();
         try {
             Response<Conditions> resp = apiBinding.getConditionsAtLatLong(latitude, longitude).execute();
             if (resp.isSuccessful())
-                return new DefaultAPIResponseHandler<>(resp.body().getCurrentObservation());
+                response.setData(resp.body().getCurrentObservation());
         } catch (Exception e) {
-            Log.e(getClass().getName(), "Error while invoking WUnderground API to retrieve current conditions");
+            System.out.println(e.getMessage());
+            logger.error(getClass().getName(), "Error while invoking WUnderground API to retrieve current conditions");
         }
-        return new DefaultAPIResponseHandler<>(null);
+        return response;
     }
 }
