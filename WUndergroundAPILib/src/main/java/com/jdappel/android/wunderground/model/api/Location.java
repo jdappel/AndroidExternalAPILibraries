@@ -1,10 +1,11 @@
 package com.jdappel.android.wunderground.model.api;
 
 /**
- * Created by jappel on 4/1/2016.
+ * Immutable POJO for representing location information.
+ *
+ * @autho jappel
  */
 public class Location {
-
 
     public Location(String city, String state, String country) {
         this.city = city;
@@ -18,5 +19,13 @@ public class Location {
 
     public String getCity() {
         return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getState() {
+        return state;
     }
 }

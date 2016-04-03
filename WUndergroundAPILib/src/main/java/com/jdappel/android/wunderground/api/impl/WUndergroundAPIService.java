@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class WUndergroundAPIService {
 
     static <T> T createAPI(Class<T> apiType, final String apiToken) {
-
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new WeatherUndergroundJacksonModule());
         Retrofit.Builder builder =
