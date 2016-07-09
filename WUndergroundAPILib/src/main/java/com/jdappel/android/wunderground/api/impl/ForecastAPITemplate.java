@@ -1,16 +1,13 @@
 package com.jdappel.android.wunderground.api.impl;
 
+import com.jdappel.android.wunderground.api.ForecastAPI;
+import com.jdappel.android.wunderground.model.api.Forecast;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import retrofit2.Response;
-
-import com.jdappel.android.wunderground.api.APIResponseHandler;
-import com.jdappel.android.wunderground.api.ForecastAPI;
-import com.jdappel.android.wunderground.model.api.CurrentObservation;
-import com.jdappel.android.wunderground.model.api.Forecast;
-
-import java.io.IOException;
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Implementation of {@link ForecastAPI}
@@ -30,15 +27,13 @@ class ForecastAPITemplate implements ForecastAPI {
     }
 
     @Override
-    public APIResponseHandler<Forecast> getForecastByLatLong(double latitude, double longitude) {
-        final DefaultAPIResponseHandler<Forecast> response = new DefaultAPIResponseHandler<>();
-        try {
-            Response<ForecastWrapper> resp = apiBinding.getForecastAtLatLong(latitude, longitude).execute();
-            if (resp.isSuccessful())
-                response.setData(resp.body().getForecast());
-        } catch (IOException e) {
-            logger.error(getClass().getName(), "Exception while retrieving forecast");
-        }
-        return response;
+    public Observable<Forecast> getForecastByLatLong(double latitude, double longitude) {
+        return apiBinding.getForecastAtLatLong(latitude, longitude).map(new Func1<ForecastWrapper, Forecast>() {
+            @Override
+            public Forecast call(ForecastWrapper forecastWrapper) {
+                return forecastWrapper.getForecast();
+            }
+        });
     }
+
 }

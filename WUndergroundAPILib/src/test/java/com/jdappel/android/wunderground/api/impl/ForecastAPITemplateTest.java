@@ -1,12 +1,13 @@
 package com.jdappel.android.wunderground.api.impl;
 
-import static org.junit.Assert.assertTrue;
+import com.jdappel.android.wunderground.model.api.Forecast;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jdappel.android.wunderground.api.APIResponseHandler;
-import com.jdappel.android.wunderground.model.api.Forecast;
+import rx.Observable;
+
+import static org.junit.Assert.assertTrue;
 
 public class ForecastAPITemplateTest {
 
@@ -21,8 +22,8 @@ public class ForecastAPITemplateTest {
     @Test
     public void testWeatherForecast() throws Exception {
 
-        APIResponseHandler<Forecast> call = forecastAPI.getForecastByLatLong(40.034573f, -82.869865f);
-        Forecast forecasts = call.getModelData();
+        Observable<Forecast> call = forecastAPI.getForecastByLatLong(40.034573f, -82.869865f);
+        Forecast forecasts = call.toBlocking().first();
         assertTrue(forecasts != null && forecasts.getTextForecast() != null
             && forecasts.getTextForecast().getForecastList() != null);
     }

@@ -1,18 +1,17 @@
 package com.jdappel.android.wunderground.api.impl;
 
+import com.jdappel.android.wunderground.api.ConditionsAPI;
+import com.jdappel.android.wunderground.model.api.CurrentObservation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import retrofit2.Response;
-
-import com.jdappel.android.wunderground.api.APIResponseHandler;
-import com.jdappel.android.wunderground.api.ConditionsAPI;
-import com.jdappel.android.wunderground.model.api.CurrentObservation;
-import com.jdappel.android.wunderground.model.api.Forecast;
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Implementation of {@link ConditionsAPI}
- * 
+ *
  * @author jappel
  */
 class ConditionsAPITemplate implements ConditionsAPI {
@@ -28,16 +27,13 @@ class ConditionsAPITemplate implements ConditionsAPI {
     }
 
     @Override
-    public APIResponseHandler<CurrentObservation> getCurrentObservationByLatLong(double latitude, double longitude) {
-        final DefaultAPIResponseHandler<CurrentObservation> response = new DefaultAPIResponseHandler<>();
-        try {
-            Response<Conditions> resp = apiBinding.getConditionsAtLatLong(latitude, longitude).execute();
-            if (resp.isSuccessful())
-                response.setData(resp.body().getCurrentObservation());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            logger.error(getClass().getName(), "Error while invoking WUnderground API to retrieve current conditions");
-        }
-        return response;
+    public Observable<CurrentObservation> getCurrentObservationByLatLong(double latitude, double longitude) {
+        return apiBinding.getConditionsAtLatLong(latitude, longitude).map(
+                new Func1<Conditions, CurrentObservation>() {
+                    @Override
+                    public CurrentObservation call(Conditions conditions) {
+                        return conditions.getCurrentObservation();
+                    }
+                });
     }
 }
